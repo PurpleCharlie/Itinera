@@ -20,7 +20,7 @@ namespace Itinera.Infrastructure.Repositories
         }
         public async Task AddAsync(User user)
         {
-            _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
 
