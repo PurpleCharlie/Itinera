@@ -12,7 +12,7 @@ namespace Itinera.Core.Interfaces
     /// </summary>
     public interface IAuthService
     {
-        Task<string?> RegisterAsync(RegisterDTO register);
+        Task<bool> RegisterAsync(RegisterDTO register);
         Task<string?> LoginAsync(LoginDTO login);
     }
 }
