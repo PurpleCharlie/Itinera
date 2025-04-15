@@ -1,0 +1,6 @@
+@Itinera.API_HostAddress = http://localhost:5192
+
+GET {{Itinera.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
