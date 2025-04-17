@@ -14,8 +14,14 @@ namespace Itinera.Core.Entities
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 
-        // Связь с пользователем
+        // Связь с пользователем (User)
         public int UserId { get; set; }
         public  User User { get; set; }
+
+        // Связь с задачами (TripTask)
+        public List<TripTask> Tasks { get; set; } = new();
+
+        // Связь с точками маршрута (RoutePoint)
+        public List<RoutePoint> RoutePoints { get; set; } = new();
     }
 }

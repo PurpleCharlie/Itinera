@@ -24,6 +24,7 @@ namespace Itinera.API.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO dto)
         {
             var token = await _authService.LoginAsync(dto);
@@ -38,6 +39,7 @@ namespace Itinera.API.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO dto)
         {
             var isSuccess = await _authService.RegisterAsync(dto);
