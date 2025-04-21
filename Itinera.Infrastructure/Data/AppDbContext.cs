@@ -19,6 +19,8 @@ namespace Itinera.Infrastructure.Data
         public DbSet<Trip> Trips { get; set; }
         public DbSet<TripTask> TripTasks { get; set; }
         public DbSet<RoutePoint> RoutePoints { get; set; }
+        public DbSet<HotelBooking> HotelBookings { get; set; }
+        public DbSet<FlightBooking> FlightBookings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
