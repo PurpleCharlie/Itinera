@@ -21,6 +21,7 @@ builder.Services.AddScoped<IRoutePointRepository, RoutePointRepository>();
 builder.Services.AddScoped<IRoutePointService, RoutePointService>();
 builder.Services.AddScoped<IAiRecommendationService, AiRecommendationService>();
 builder.Services.AddHttpClient<IAiRecommendationService, AiRecommendationService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
