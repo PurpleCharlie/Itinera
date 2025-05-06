@@ -24,9 +24,9 @@ namespace Itinera.API.Controllers
         {
             var isSucces = await _tripService.CreateTripAsync(GetUserId(), dto);
             if (!isSucces)
-                return BadRequest("Не удалось создать поездку");
+                return BadRequest(new { message = "Не удалось создать поездку" });
 
-            return Ok("Поездка добавлена");
+            return Ok(new { message = "Поездка добавлена" });
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace Itinera.API.Controllers
         {
             var trips = await _tripService.GetTripsForUserAsync(GetUserId());
             if (trips == null || trips.Count == 0)
-                return NotFound("Поездки не найдены");
+                return NotFound(new { message = "Поездки не найдены" });
             return Ok(trips);
         }
 
@@ -43,7 +43,7 @@ namespace Itinera.API.Controllers
         {
             var trip = await _tripService.GetTripByIdAsync(id, GetUserId());
             if (trip == null)
-                return NotFound("Поездка не найдена");
+                return NotFound(new { message = "Поездка не найдена" });
 
             return Ok(trip);
         }

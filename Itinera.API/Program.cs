@@ -10,6 +10,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173") // <Ц порт Vite
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // DI-контейнер
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -22,6 +33,7 @@ builder.Services.AddScoped<IRoutePointService, RoutePointService>();
 builder.Services.AddScoped<IAiRecommendationService, AiRecommendationService>();
 builder.Services.AddHttpClient<IAiRecommendationService, AiRecommendationService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -47,6 +59,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
 {

@@ -9,7 +9,7 @@ namespace Itinera.Core.Interfaces
 {
     public interface IBookingService
     {
-        Task<bool> BookHotelAsync(int tripId, CreateHotelBookingDTO dto);
-        Task<bool> BookFlightAsync(int tripId, CreateFlightBookingDTO dto);
+        Task<bool> BookHotelAsync(int tripId, CreateHotelBookingDTO dto, string email);
+        Task<bool> BookFlightAsync(int tripId, CreateFlightBookingDTO dto, string email);
     }
 }
