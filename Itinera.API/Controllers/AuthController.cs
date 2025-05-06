@@ -29,7 +29,7 @@ namespace Itinera.API.Controllers
         {
             var token = await _authService.LoginAsync(dto);
             if(token == null)
-                return BadRequest("Неверный логин или пароль");
+                return BadRequest(new { message = "Неверный логин или пароль" });
 
             return Ok(new { Token = token });
         }
@@ -44,9 +44,9 @@ namespace Itinera.API.Controllers
         {
             var isSuccess = await _authService.RegisterAsync(dto);
             if(!isSuccess)
-                return BadRequest("Пользователь с таким email уже существует");
+                return BadRequest(new { message = "Пользователь с таким email уже существует" });
 
-            return Ok("Пользователь успешно зарегистрирован");
+            return Ok(new { message = "Пользователь успешно зарегистрирован" });
         }
 
     }
