@@ -41,7 +41,7 @@ namespace Itinera.Infrastructure.Services
               await _email.SendEmailAsync(
                   toEmail: email,
                   subject: "Подтверждение бронирования отеля",
-                  body: $"Вы забронировали отель {dto.HotelName} с {dto.CheckIn:dd:MM:yyyy} по {dto.CheckOut:dd:MM:yyyy}");
+                  body: $"Вы забронировали отель {dto.HotelName} с {dto.CheckIn:dd.MM.yyyy} по {dto.CheckOut:dd.MM.yyyy}");
             }
             return true;
         }

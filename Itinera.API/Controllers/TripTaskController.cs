@@ -22,6 +22,13 @@ namespace Itinera.API.Controllers
             return isSuccess ? Ok("Задача добавлена") : NotFound("Поездка не найдена");
         }
 
+        [HttpDelete("{taskId}")]
+        public async Task<IActionResult> DeleteTask(int tripId, int taskId)
+        {
+            await _taskService.DeleteTaskToTripAsync(tripId, taskId);
+            return Ok(new { message = "Задача успешно удалена!" });
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetTasks(int tripId)
         {

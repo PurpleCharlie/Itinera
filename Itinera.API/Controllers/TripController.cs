@@ -29,6 +29,16 @@ namespace Itinera.API.Controllers
             return Ok(new { message = "Поездка добавлена" });
         }
 
+        [HttpDelete("{tripId:int}")]
+        public async Task<IActionResult> DeleteTrip(int tripId)
+        {
+            var isSucces = await _tripService.DeleteTripAsync(tripId);
+            if(!isSucces)
+                return BadRequest(new { message = "Не удалось удалить поездку" });
+
+            return Ok(new { message = "Поездка удалена" });
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetTrips()
         {

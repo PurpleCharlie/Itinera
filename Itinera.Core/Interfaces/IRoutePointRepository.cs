@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Itinera.Core.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Itinera.Core.Interfaces
     public interface IRoutePointRepository
     {
         Task AddAsync(RoutePoint point);
+        Task<bool> DeleteAsync(int tripId, int routeId);
         Task<List<RoutePoint>> GetByTripIdAsync(int tripId);
         Task SaveAsync();
     }

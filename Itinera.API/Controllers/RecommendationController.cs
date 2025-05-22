@@ -17,7 +17,7 @@ namespace Itinera.API.Controllers
         [HttpPost]
         public async Task<IActionResult> GetRecommendation(UserPreferencesDTO dto)
         {
-            var resultRecommendation = await _service.GetRecommendationAsync(dto);
+            var resultRecommendation = await _service.GetRecommendationV2Async(dto);
             return Ok(resultRecommendation);
         }
     }

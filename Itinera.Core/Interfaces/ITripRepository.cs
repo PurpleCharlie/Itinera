@@ -12,5 +12,6 @@ namespace Itinera.Core.Interfaces
         Task<List<Trip>> GetTripsByUserIdAsync(int userId);
         Task<Trip> GetByIdAsync(int id);
         Task AddAsync(Trip trip);
+        Task DeleteAsync(int tripId);
     }
 }

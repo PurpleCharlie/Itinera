@@ -33,6 +33,13 @@ namespace Itinera.Infrastructure.Services
             return true;
         }
 
+        public async Task<bool> DeleteTaskToTripAsync(int tripId, int taskId)
+        {
+            await _taskRepo.DeleteAsync(tripId, taskId);
+            await _taskRepo.SaveAsync();
+            return true;
+        }
+
         public async Task<List<TripTaskDTO>> GetTasksByTripAsync(int tripId)
         {
             var tasks = await _taskRepo.GetByTripIdAsync(tripId);

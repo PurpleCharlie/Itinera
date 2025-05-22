@@ -22,6 +22,18 @@ namespace Itinera.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> DeleteAsync(int tripId, int routeId)
+        {
+            var route = await _context.RoutePoints.FirstOrDefaultAsync(p => p.Id == routeId && p.TripId == tripId);
+            if (route != null)
+            {
+                _context.RoutePoints.Remove(route);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<List<RoutePoint>> GetByTripIdAsync(int tripId)
         {
             return await _context.RoutePoints.Where(p => p.TripId == tripId)

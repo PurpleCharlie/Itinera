@@ -10,5 +10,6 @@ namespace Itinera.Core.Interfaces
     public interface IAiRecommendationService
     {
         Task<AiRecommendationResultDTO> GetRecommendationAsync(UserPreferencesDTO preferences);
+        Task<AiRecommendationResultDTO> GetRecommendationV2Async(UserPreferencesDTO preferences);
     }
 }

@@ -9,6 +9,7 @@ namespace Itinera.Core.Interfaces
     public interface ITripTaskRepository
     {
         Task AddAsync(TripTask tripTask);
+        Task DeleteAsync(int tripId, int taskId);
         Task<List<TripTask>> GetByTripIdAsync(int tripId);
         Task<TripTask> GetByIdAsync(int taskId);
         Task SaveAsync();
