@@ -13,5 +13,8 @@ namespace Itinera.Core.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+        public string? CurrentCity { get; set; } = null;
+        public string? InterestsRaw { get; set; } = null;
+        public string? TravelStyle { get; set; } = null;
     }
 }

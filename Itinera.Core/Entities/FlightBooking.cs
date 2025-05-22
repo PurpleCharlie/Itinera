@@ -14,6 +14,7 @@ namespace Itinera.Core.Entities
         public DateTime DepatureDate { get; set; }
         public string Airline { get; set; } = null!;
         public string Status { get; set; } = "Ожидание";
+        public decimal Price { get; set; }
 
         // Связь с поездкой (Trip)
         public int TripId { get; set; }

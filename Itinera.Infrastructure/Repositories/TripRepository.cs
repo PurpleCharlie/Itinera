@@ -25,6 +25,12 @@ namespace Itinera.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(Trip trip)
+        {
+            _context.Trips.Update(trip);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(int tripId)
         {
             var trip = await _context.Trips.FirstOrDefaultAsync(t => t.Id == tripId);
@@ -41,6 +47,7 @@ namespace Itinera.Infrastructure.Repositories
         public async Task<List<Trip>> GetTripsByUserIdAsync(int userId)
         {
             return await _context.Trips
+                .AsNoTracking()
                 .Where(t => t.UserId == userId)
                 .OrderByDescending(t => t.DateFrom)
                 .ToListAsync();

@@ -21,10 +21,17 @@ namespace Itinera.Infrastructure.Data
         public DbSet<RoutePoint> RoutePoints { get; set; }
         public DbSet<HotelBooking> HotelBookings { get; set; }
         public DbSet<FlightBooking> FlightBookings { get; set; }
+        public DbSet<RecommendationHistory> RecommendationHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RecommendationHistory>()
+                .HasOne(r => r.Trip)
+                .WithMany()
+                .HasForeignKey(r => r.TripId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

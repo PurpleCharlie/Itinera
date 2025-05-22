@@ -20,7 +20,7 @@ namespace Itinera.Infrastructure.Services
             _http = http;
         }
 
-        /*          Запрос к API AI на макс.кол-во токенов          */
+        /*          Запрос к API AI на макс. кол-во токенов          */
         public async Task<AiRecommendationResultDTO> GetRecommendationAsync(UserPreferencesDTO preferences)
         {
             var prompt = BuildPrompt(preferences);
@@ -114,6 +114,8 @@ namespace Itinera.Infrastructure.Services
                     .GetString() ?? "Ответ пуст";
             }
 
+            // Отправляем запрос к API. Если значение токенов слишком большое (т.к. бесплатный доступ),
+            // то снижаем на 512 - повторяем до тех пор, пока запрос не пройдёт либо не будет < 512 токенов.
             while (maxTokens >= 512)
             {
                 try

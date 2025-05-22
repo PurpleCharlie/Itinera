@@ -29,6 +29,16 @@ namespace Itinera.API.Controllers
             return Ok(new { message = "Поездка добавлена" });
         }
 
+        [HttpPut("{tripId}")]
+        public async Task<IActionResult> UpdateTrip(int tripId, [FromBody] UpdateTripDTO dto)
+        {
+            var isSuccees = await _tripService.UpdateTripAsync(tripId, dto);
+            if (!isSuccees)
+                return BadRequest(new { message = "Не удалось обновить поездку" });
+
+            return Ok(new {message = "Поездка обновлена"});
+        }
+
         [HttpDelete("{tripId:int}")]
         public async Task<IActionResult> DeleteTrip(int tripId)
         {

@@ -12,5 +12,6 @@ namespace Itinera.Core.DTOs
         public string To { get; set; } = null!;
         public DateTime DepartureDate { get; set; }
         public string Airline { get; set; } = null!;
+        public decimal Price { get; set; }
     }
 }

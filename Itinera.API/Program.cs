@@ -7,15 +7,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173") // <Ц порт Vite
+            .WithOrigins("http://localhost:5173") // порт frontend
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -30,13 +32,24 @@ builder.Services.AddScoped<ITripTaskRepository, TripTaskRepository>();
 builder.Services.AddScoped<ITripTaskService, TripTaskService>();
 builder.Services.AddScoped<IRoutePointRepository, RoutePointRepository>();
 builder.Services.AddScoped<IRoutePointService, RoutePointService>();
-builder.Services.AddScoped<IAiRecommendationService, AiRecommendationService>();
+//builder.Services.AddScoped<IAiRecommendationService, AiRecommendationService>();
 builder.Services.AddHttpClient<IAiRecommendationService, AiRecommendationService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+builder.Services.AddScoped<IRecommendationHistoryRepository, RecommendationHistoryRepository>();
+builder.Services.AddScoped<IRecommendationHistoryService, RecommendationHistoryService>();
+builder.Services.AddHttpClient<IHotelSearchService, HotelSearchService>();
+builder.Services.AddHttpClient<IFlightSearchService, FlightSearchService>();
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddDbContextPool<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 // JWT Auth
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
