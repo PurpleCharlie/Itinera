@@ -9,7 +9,8 @@ namespace Itinera.Core.Interfaces
 {
     public interface IRoutePointService
     {
-        Task<bool> AddRoutePointAsync(int tripId, CreateRoutePointDTO dTO);
+        Task<bool> AddRoutePointAsync(int tripId, CreateRoutePointDTO dto);
+        Task<string> DeleteRoutePointAsync(int tripId, int routeId);
         Task<List<RoutePointDTO>> GetRouteByTripIdAsync(int tripId);
     }
 }

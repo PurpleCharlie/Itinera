@@ -20,6 +20,7 @@ namespace Itinera.Infrastructure.Services
             _http = http;
         }
 
+        /*          Запрос к API AI на макс.кол-во токенов          */
         public async Task<AiRecommendationResultDTO> GetRecommendationAsync(UserPreferencesDTO preferences)
         {
             var prompt = BuildPrompt(preferences);
@@ -74,13 +75,75 @@ namespace Itinera.Infrastructure.Services
             }
         }
 
+        /*          Альтернативный запрос к API AI с регулировкой токенов          */
+        public async Task<AiRecommendationResultDTO> GetRecommendationV2Async(UserPreferencesDTO preferences)
+        {
+            var prompt = BuildPrompt(preferences);
+            var apiKey = _config["DeepSeek:ApiKey"];
+            var maxTokens = 4096;
+
+            async Task<string> SendRequest(int tokens)
+            {
+                var requestBody = new
+                {
+                    model = "deepseek/deepseek-r1",
+                    messages = new[] { new { role = "user", content = prompt } },
+                    max_tokens = tokens
+                };
+
+                var request = new HttpRequestMessage(HttpMethod.Post, "https://openrouter.ai/api/v1/chat/completions");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+                request.Headers.Add("HTTP-Referer", "https://itinera.local");
+                request.Headers.Add("X-Title", "Itinera Travel AI");
+                request.Content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+                var response = await _http.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine("== RAW RESPONSE ==");
+                Console.WriteLine(json);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception(json);
+
+                var document = JsonDocument.Parse(json);
+                return document.RootElement
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
+                    .GetProperty("content")
+                    .GetString() ?? "Ответ пуст";
+            }
+
+            while (maxTokens >= 512)
+            {
+                try
+                {
+                    var summary = await SendRequest(maxTokens);
+                    return new AiRecommendationResultDTO { Summary = summary };
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("max_tokens") || ex.Message.Contains("more credits"))
+                    {
+                        maxTokens -= 512;
+                        continue;
+                    }
+
+                    return new AiRecommendationResultDTO { Summary = $"Ошибка AI: {ex.Message}" };
+                }
+            }
+
+            return new AiRecommendationResultDTO { Summary = "Не удалось получить ответ от AI: недостаточно токенов." };
+        }
+
+
         private string BuildPrompt(UserPreferencesDTO dto)
         {
-            return $"Я собираюсь поехать в {dto.Destination} на {dto.Days} дней. " +
-                   $"Я предпочитаю стиль путешествий: {dto.Style}. " +
-                   $"Меня интересуют: {dto.Interests}. " +
-                   $"Уровень бюджета: {dto.BudgetLevel}. " +
-                   $"Порекомендуй, что посмотреть, куда сходить, какие советы учесть.";
+            return $"Планирую поехать в {dto.Destination} на {dto.Days} дней. " +
+                   $"Стиль: {dto.Style}. " +
+                   $"Интересы: {dto.Interests}. " +
+                   $"Бюджет: {dto.BudgetLevel}. " +
+                   $"Дай рекомендации по маршруту и советам";
         }
     }
 }

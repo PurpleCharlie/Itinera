@@ -22,6 +22,17 @@ namespace Itinera.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int tripId, int taskId)
+        {
+            var task = await _context.TripTasks.FirstOrDefaultAsync(t => t.Id == taskId && t.TripId == tripId);
+            if (task != null)
+            {
+                _context.TripTasks.Remove(task);
+                await _context.SaveChangesAsync();
+            }
+
+        }
+
         public async Task<TripTask> GetByIdAsync(int taskId)
         {
             return await _context.TripTasks.FindAsync(taskId);

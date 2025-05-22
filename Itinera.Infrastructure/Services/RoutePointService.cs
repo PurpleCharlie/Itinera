@@ -37,6 +37,15 @@ namespace Itinera.Infrastructure.Services
 
         }
 
+        public async Task<string> DeleteRoutePointAsync(int tripId, int routeId)
+        {
+
+            var point = await _routeRepo.DeleteAsync(tripId, routeId);
+            if (point)
+                return "Успешно удалено!";
+            return "Не удалось удалить.";
+        }
+
         public async Task<List<RoutePointDTO>> GetRouteByTripIdAsync(int tripId)
         {
             var points = await _routeRepo.GetByTripIdAsync(tripId);

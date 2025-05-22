@@ -10,6 +10,7 @@ namespace Itinera.Core.Interfaces
     public interface ITripTaskService
     {
         Task<bool> AddTaskToTripAsync(int tripId, CreateTripTaskDTO dto);
+        Task<bool> DeleteTaskToTripAsync(int tripId, int taskId);
         Task<List<TripTaskDTO>> GetTasksByTripAsync(int tripId);
         Task<bool> ToggleTaskStatusAsync(int tripId, int taskId);
     }
