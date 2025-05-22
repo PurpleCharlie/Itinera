@@ -30,6 +30,7 @@ namespace Itinera.Infrastructure.Services
                 HotelName = dto.HotelName,
                 CheckIn = dto.CheckIn,
                 CheckOut = dto.CheckOut,
+                Price = dto.Price,
                 Status = "Ожидание"
             };
 
@@ -41,7 +42,7 @@ namespace Itinera.Infrastructure.Services
               await _email.SendEmailAsync(
                   toEmail: email,
                   subject: "Подтверждение бронирования отеля",
-                  body: $"Вы забронировали отель {dto.HotelName} с {dto.CheckIn:dd.MM.yyyy} по {dto.CheckOut:dd.MM.yyyy}");
+                  body: $"Вы забронировали отель: '{dto.HotelName}' \nДата: с {dto.CheckIn:dd.MM.yyyy} по {dto.CheckOut:dd.MM.yyyy} число.\nЦена: {dto.Price} руб.");
             }
             return true;
         }
@@ -59,7 +60,8 @@ namespace Itinera.Infrastructure.Services
                 To = dto.To,
                 DepatureDate = dto.DepartureDate,
                 Airline = dto.Airline,
-                Status = "Ожидание"
+                Status = "Ожидание",
+                Price = dto.Price
             };
 
             _context.FlightBookings.Add(booking);
@@ -70,7 +72,7 @@ namespace Itinera.Infrastructure.Services
               await _email.SendEmailAsync(
                 toEmail: email,
                 subject: "Подтверждение бронирования рейса",
-                body: $"Вы забронировали рейс компанией {dto.Airline} на {dto.DepartureDate}. Летите из {dto.From} в {dto.To}"
+                body: $"Вы забронировали рейс компанией: {dto.Airline}\nДата: {dto.DepartureDate}.\nЛетите из {dto.From} в {dto.To}"
                 );
             }
             

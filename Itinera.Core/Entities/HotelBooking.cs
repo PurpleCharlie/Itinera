@@ -12,6 +12,8 @@ namespace Itinera.Core.Entities
         public string HotelName { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
+        public decimal Price { get; set; }
+
         public string Status { get; set; } = "Ожидание";
 
         // Связь с поездкой (Trip)

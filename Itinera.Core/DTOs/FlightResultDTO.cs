@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Itinera.Core.DTOs
 {
-    public class CreateHotelBookingDTO
+    public class FlightResultDTO
     {
-        public string HotelName { get; set; } = null!;
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
+        public DateTime DepartureAt { get; set; }
+        public string Airline { get; set; }
         public decimal Price { get; set; }
 
     }

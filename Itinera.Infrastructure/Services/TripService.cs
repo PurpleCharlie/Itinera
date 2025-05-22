@@ -33,6 +33,22 @@ namespace Itinera.Infrastructure.Services
             return true;
         }
 
+        public async Task<bool> UpdateTripAsync(int tripId, UpdateTripDTO dto)
+        {
+            var updateTrip = await _repository.GetByIdAsync(tripId);
+            if (updateTrip == null)
+                return false;
+
+            updateTrip.Id = tripId;
+            updateTrip.Title = dto.Title;
+            updateTrip.Description = dto.Description;
+            updateTrip.DateFrom = dto.DateFrom;
+            updateTrip.DateTo = dto.DateTo;
+
+            await _repository.UpdateAsync(updateTrip);
+            return true;
+        }
+
         public async Task<bool> DeleteTripAsync(int tripId)
         {
             await _repository.DeleteAsync(tripId);
