@@ -48,7 +48,8 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddDbContextPool<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+   // Глобальное отключение трекинга (AsNoTracking())
+   //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 // JWT Auth
