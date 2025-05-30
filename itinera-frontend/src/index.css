@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  font-family: system-ui, sans-serif;
+  background-color: #f3f4f6;
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.leaflet-control-attribution svg {
+  display: none !important;
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.transform-style {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.scrollbar-gutter {
+  scrollbar-gutter: stable both-edges;
+}
+
+@theme {
+  --animate-window-pop: window-pop 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  @keyframes window-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.2) translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+}
+
+@theme {
+  --animate-task-fade-in: task-fade-in 0.8s ease-out both;
+
+  @keyframes task-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@theme {
+  --animate-form-in: fade-slide-in 0.8s ease forwards;
+
+  @keyframes fade-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@layer utilities {
+  .animate-slide-in-right {
+    animation: slide-in-right 0.7s ease-out;
+  }
+  .animate-slide-in-left {
+    animation: slide-in-left 0.7s ease-out;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out both;
+  }
+}
+
+body {
+  @apply bg-sky-100 dark:bg-gray-900 min-h-screen;
+}
