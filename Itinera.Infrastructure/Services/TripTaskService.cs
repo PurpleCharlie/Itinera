@@ -62,7 +62,9 @@ namespace Itinera.Infrastructure.Services
             if (task.TripId != tripId)
                 return false;
 
+            Console.WriteLine($"Было: {task.IsCompleted}");
             task.IsCompleted = !task.IsCompleted;
+            Console.WriteLine($"Стало: {task.IsCompleted}");
             await _taskRepo.SaveAsync();
 
             return true;
