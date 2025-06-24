@@ -37,6 +37,7 @@ namespace Itinera.Infrastructure.Services
 
             return GenerateJwtToken(user);
         }
+
         public async Task<bool> RegisterAsync(RegisterDTO register)
         {
             var isExistsUser = await _repository.ExistsByEmailAsync(register.Email);

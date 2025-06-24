@@ -25,7 +25,7 @@ namespace Itinera.Infrastructure.Services
             var toCode = await GetIataCodeAsync(to);
 
             if (string.IsNullOrEmpty(fromCode) || string.IsNullOrEmpty(toCode))
-                return new List<FlightResultDTO>(); // ничего не найдено
+                return new List<FlightResultDTO>();
 
             var url = $"https://api.travelpayouts.com/v2/prices/latest?origin={fromCode}&destination={toCode}&depart_date={departDate}&currency=rub";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
