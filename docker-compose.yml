@@ -1,0 +1,29 @@
+version: "5.0"
+
+services:
+  api:
+    image: purplecharlie/itinera-backend
+    container_name: itinera-back
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:5192
+    depends_on:
+      - db
+    ports:
+      - "5192:5192"
+  db:
+    image: mcr.microsoft.com/mssql/server
+    container_name: itinera-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=passworD12345!
+    volumes:
+      - mssql_data:/var/opt/mssql
+  client:
+    image: purplecharlie/itinera-frontend
+    container_name: itinera-front
+    depends_on:
+      - api
+    ports:
+      - "5173:5173"
+volumes:
+  mssql_data:
