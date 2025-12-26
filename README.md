@@ -133,4 +133,4 @@ docker compose -f https://raw.githubusercontent.com/PurpleCharlie/Itinera/master
 ---
 
 ## Разработчик
-[GitHub](https://github.com/PurpleCharlie) — [Telegram](t.me/PurpleEnigma)
+[GitHub](https://github.com/PurpleCharlie) — [Telegram](https://t.me/PurpleEnigma)
